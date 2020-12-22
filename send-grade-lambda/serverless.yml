@@ -1,0 +1,25 @@
+service: send-grade-lambda
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: v1
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+
+functions:
+  sendGrades:
+    name: ${self:service}_send-grades_${self:provider.stage}
+    handler: src/handler.sendGrade
+    description: Function to send a grade to queue fifo
+    timeout: 50
+    memorySize: 180
+    events:
+      - http:
+          path: professors/{professorId}/students/{studentId}/courses/{courseId}/grades
+          method: POST
+          cors: false
+          private: false
