@@ -10,6 +10,8 @@ A ideia é que ela será um microsserviço usado em uma aplicação voltada ao e
 Após enviar, o lambda se encarrega de mandar a nota para o SQS FIFO, após isso a fila manda as notas seguindo o conceito de FIFO para outro lambda.
 Esse ultimo lambda é responsavel por salvar a nota do aluno na database.
 
+![sqs and lambda architecture](https://user-images.githubusercontent.com/37625040/103140558-aaec1680-46c6-11eb-87a5-362615df402d.PNG)
+
 ## :rocket: Tecnologias 
 
 -  [Node.js](https://nodejs.org)
