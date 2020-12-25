@@ -10,6 +10,8 @@ const sqs = require('./services/sqs');
 const Grades = require('./models/grades');
 
 module.exports.receiveGrade = async (event, context) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+
   const messages = await sqs.receiveMessage();
 
   if (!messages) {
