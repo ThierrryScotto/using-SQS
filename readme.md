@@ -17,5 +17,6 @@ Esse ultimo lambda é responsavel por salvar a nota do aluno na database.
 -  [Node.js](https://nodejs.org)
 -  [Lambda](https://aws.amazon.com/pt/lambda/)
 -  [SQS](https://docs.aws.amazon.com/pt_br/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+-  [SNS](https://docs.aws.amazon.com/pt_br/sdk-for-javascript/v2/developer-guide/sns-examples.html)
 -  [MongoDB](https://www.mongodb.com/)
 -  [serverless-offline](https://github.com/dherault/serverless-offline)
