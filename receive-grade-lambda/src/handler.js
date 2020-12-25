@@ -6,6 +6,9 @@ require('dotenv').config();
 // sqs
 const sqs = require('./services/sqs'); 
 
+// models
+const Grades = require('./models/grades');
+
 module.exports.receiveGrade = async (event, context) => {
   const messages = await sqs.receiveMessage();
 
@@ -13,7 +16,14 @@ module.exports.receiveGrade = async (event, context) => {
     return { statusCode: 404, body: JSON.stringify({ message: "The queue is empty" })};
   }
 
-  // toda a tratativa do sqs no dynamo
+  for (let index in messages) {
+    await Grades.create({
+      ProfessorId : messages[index].MessageAttributes.professor.StringValue,
+      courseId    : messages[index].MessageAttributes.course.StringValue,
+      studentId   : messages[index].MessageAttributes.student.StringValue,
+      grade       : messages[index].MessageAttributes.grade.StringValue
+    });
+  }
 
   const messageDeleted = await sqs.deleteMessage(messages);
 
