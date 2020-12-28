@@ -18,15 +18,15 @@ module.exports.receiveGrade = async (event, context) => {
     return { statusCode: 404, body: JSON.stringify({ message: "The queue is empty" })};
   }
 
-  for (let index in messages) {
+  for await(let message of messages) {
     await Grades.create({
-      ProfessorId : messages[index].MessageAttributes.professor.StringValue,
-      courseId    : messages[index].MessageAttributes.course.StringValue,
-      studentId   : messages[index].MessageAttributes.student.StringValue,
-      grade       : messages[index].MessageAttributes.grade.StringValue
+      ProfessorId : message.MessageAttributes.professor.StringValue,
+      courseId    : message.MessageAttributes.course.StringValue,
+      studentId   : message.MessageAttributes.student.StringValue,
+      grade       : message.MessageAttributes.grade.StringValue
     });
   }
-
+  
   const messageDeleted = await sqs.deleteMessage(messages);
 
   return { statusCode: 200, body: JSON.stringify(messageDeleted)};
