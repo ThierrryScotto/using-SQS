@@ -51,10 +51,10 @@ class SQSClass {
     let idMessageDeleted     = [];
 
     if (deleteMessageSsync) {
-      for (let index in messages) {
+      for await (let message of messages) {
         var deleteParams = {
           QueueUrl      : this.QueueUrl,
-          ReceiptHandle : messages[index].ReceiptHandle
+          ReceiptHandle : message.ReceiptHandle
         };
 
         const result = await deleteMessageSsync(deleteParams);
